@@ -1,0 +1,61 @@
+html {
+  font-size: 62.5%;
+}
+body {
+  margin: 10px;
+  color: #666;
+  font-size: 14px;
+  font-size: 1.4rem;
+}
+h1 {
+  color: #2D2D37;
+  text-align: center;
+}
+h2 {
+  color: #EF3340;
+}
+h2 span {
+  font-style: italic;
+  color: #444;
+  font-size: 1.8rem;
+}
+h3 {
+  color: #686872;
+}
+.bloc {
+  border: 1px solid #ccc;
+  margin: 5px;
+  padding: 10px 20px;
+  border-radius: 3px;
+  background-color: #fbfbfb;
+}
+p, ul {
+  margin-bottom: 0px;
+}
+p.green {
+  color: #3F0;
+}
+p.bold {
+  font-weight: 900;
+}
+p.underline {
+  text-decoration: underline;
+}
+q {
+  font-style: italic;
+}
+label {
+  min-width: 80px;
+}
+.error {
+  color: #ff0000;
+}
+input[type="submit"] {
+  color: #000;
+}
+input[type="submit"]:disabled {
+  color: #bbb;
+}
+input.ng-invalid:not(.ng-pristine) {
+  background-color: #FEBFD2;
+}

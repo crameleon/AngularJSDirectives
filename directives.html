@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="./css/general.css" />
+    <title>Tutoriel AngularJS</title>
+  </head>
+  <body ng-app="monApp">
+
+    <div ng-controller="DirectivesCtrl">
+
+      <h1>Les Directives</h1>
+
+      <!-- ngModel -->
+
+      <hr/>
+      <h2>Modèle de Données <span>(ngModel)</span></h2>
+
+      <div class="bloc">
+        <label for="prenom">Prénom : </label>
+        <input type="text" name="prenom" id="prenom" ng-model="prenom"/>
+        <p>Bonjour {{prenom}} !</p>
+      </div>
+
+      <div class="bloc">
+        <input type="radio" name="civilite" value="Mr" id="Mr" ng-model="utilisateur.civilite">
+        <label for="Mr">Mr</label><br/>
+        <input type="radio" name="civilite" value="Mme" id="Mme" ng-model="utilisateur.civilite">
+        <label for="Mme">Mme</label>
+        <p>Votre civilité est : {{utilisateur.civilite}}</p>
+      </div>
+
+      <!-- ngIf -->
+
+      <hr/>
+      <h2>Condition <span>(ngIf)</span></h2>
+
+      <div class="bloc">
+        <label for="nom">Nom :</label>
+        <input type="text" name="nom" id="nom" ng-model="nom"/>
+        <p ng-if="nom">Votre nom est {{nom}} !</p>
+      </div>
+
+      <div class="bloc">
+        <label for="age">Age :</label>
+        <input type="number" name="age" ng-model="age"/> ans
+        <p ng-if="age && age>=18">Vous êtes majeur !</p>
+        <p ng-if="age && age<18">Vous êtes mineur !</p>
+      </div>
+
+      <!-- ngRepeat -->
+
+      <hr/>
+      <h2>Boucle et Filtre <span>(ngRepeat)</span></h2>
+
+      <h3>Liste complète des utilisateurs</h3>
+      <div class="bloc">
+        <ul>
+          <li ng-repeat="friend in friends">{{friend.name}}, {{friend.age}} ans, type : {{friend.gender}}</li>
+        </ul>
+      </div>
+
+      <h3>Trier et Filtrer les utilisateurs</h3>
+      <div class="bloc">
+        <label for="recherche">Rechercher dans la liste : </label>
+        <input type="text" name="filtre" id="recherche" ng-model="recherche.name"/>
+        <ul>
+          <li ng-repeat="friend in friends | orderBy:'name' | filter:recherche">{{friend.name}}</li>
+        </ul>
+      </div>
+
+      <!-- ngShow & ngClick -->
+
+      <hr/>
+      <h2>Actions utilisateurs <span>(ngShow & ngClick)</span></h2>
+
+      <div class="bloc">
+        <button ng-click="toggleLogo()">Afficher / Masquer le logo</button>
+        <img src="./img/angular.svg" alt="AngularJS logo" ng-show="displayLogo"/>
+      </div>
+
+      <!-- ngClass -->
+
+      <hr/>
+      <h2>Classes CSS <span>(ngClass)</span></h2>
+
+      <div class="bloc">
+        <p ng-class="{green: vert, bold: gras, underline: souligne}">Texte auquel on ajoute un style</p>
+        <hr/>
+        <input type="checkbox" ng-model="vert" id="vert"> <label for="vert">Mettre en vert</label><br/>
+        <input type="checkbox" ng-model="gras" id="gras"> <label for="gras">Mettre en gras</label><br/>
+        <input type="checkbox" ng-model="souligne" id="souligne"> <label for="souligne">Souligner</label>
+      </div>
+
+      <!-- ngOptions & ngSwitch -->
+
+      <hr/>
+      <h2>Liste d'options <span>(ngOptions & ngSwitch)</span></h2>
+
+      <div class="bloc">
+        <select ng-model="selection" ng-options="task for task in tasks"></select>
+        <p>Vous avez choisi de : {{selection}}</p>
+        <div ng-switch on="selection">
+          <q ng-switch-when="Dormir">Rien de tel qu'une bonne nuit de sommeil !</q>
+          <q ng-switch-when="Travailler">Le travail, c'est la santé !</q>
+          <q ng-switch-when="Manger">Il faut faire le plein de vitamines !</q>
+          <q ng-switch-default>Les loisirs, rien de tel pour se changer les idées !</q>
+        </div>
+      </div>
+
+      <!-- ngSubmit & ngMessages & ngDisabled & $dirty -->
+
+      <hr/>
+      <h2>Formulaire <span>(ngSubmit & ngMessages & ngDisabled & $dirty)</span></h2>
+
+      <div class="bloc">
+
+        <form name="subscriptionForm" ng-submit="subscribe()">
+          <label for="name">Nom :</label>
+          <input type="text" name="name" id="name" ng-model="user.name" ng-maxlength="20" required />
+          <span class="error" ng-messages="subscriptionForm.name.$error" role="alert" ng-show="subscriptionForm.name.$dirty">
+            <span ng-message="required">Champ requis</span>
+            <span ng-message="maxlength">Valeur trop longue</span>
+          </span>
+          <br/><label for="age">Age :</label>
+          <input type="number" name="age" id="age" ng-model="user.age" required/>
+          <span class="error" ng-messages="subscriptionForm.age.$error" role="alert" ng-show="subscriptionForm.age.$dirty">
+            <span ng-message="required">Champ requis</span>
+            <span ng-message="number">Caractères alphabétiques non autorisés</span>
+          </span>
+          <br/><label for="email">Email :</label>
+          <input type="email" name="email" id="email" ng-model="user.email" required/>
+          <span class="error" ng-messages="subscriptionForm.email.$error" role="alert" ng-show="subscriptionForm.email.$dirty">
+            <span ng-message="required">Champ requis</span>
+            <span ng-message="email">E-mail non valide</span>
+          </span>
+          <br/><input type="submit" value="S'inscrire" ng-disabled="!subscriptionForm.$valid"/>
+        </form>
+
+      </div>
+
+    </div>
+
+    <!-- AngularJS -->
+    <script src="./lib/angular.js"></script>
+    <!-- Pour ngMessages -->
+    <script src="./lib/angular-messages.js"></script>
+    <script>
+      // Definition of the app
+      var monApp = angular.module('monApp', ['ngMessages']);
+    </script>
+    <script src="./directivesCtrl.js"></script>
+  </body>
+</html>
